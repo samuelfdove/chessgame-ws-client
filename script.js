@@ -13,7 +13,7 @@ function t(board){
   }
 }
 
-import { Chessground } from './node_modules/chessground/chessground.js'
+import { Chessground } from './chessground/chessground.js'
 
 const config = {
   movable: {
