@@ -1,10 +1,10 @@
-const exampleSocket = new WebSocket(
-  "ws://localhost:8001/"
-);
-
 // const exampleSocket = new WebSocket(
-//   "wss://desolate-reaches-83993-5015aeedf72f.herokuapp.com/"
+//   "ws://localhost:8001/"
 // );
+
+const exampleSocket = new WebSocket(
+  "wss://desolate-reaches-83993-5015aeedf72f.herokuapp.com/"
+);
 
 function t(board){
   return (orig,dest,metadata) => {
