@@ -1,10 +1,10 @@
-// const exampleSocket = new WebSocket(
-//   "ws://localhost:8001/"
-// );
-
 const exampleSocket = new WebSocket(
-  "wss://desolate-reaches-83993-5015aeedf72f.herokuapp.com/"
+  "ws://localhost:8001/"
 );
+
+// const exampleSocket = new WebSocket(
+//   "wss://desolate-reaches-83993-5015aeedf72f.herokuapp.com/"
+// );
 
 function t(board){
   return (orig,dest,metadata) => {
@@ -22,27 +22,61 @@ const config = {
   }
 };
 var i = 0
-const board = Chessground(document.getElementById('chessground'), config);
-board.set({ movable: { events: { after: t(board)}}})
-//board.set({movable: { events: { after: t}}});
+let board
+let message = ""
+
+
 
 exampleSocket.onmessage = (event) => {
-  const test=JSON.parse(event.data)
-  console.log(test["value"])
-  board.set({fen: test["value"]})
+  message=JSON.parse(event.data)
+  console.log("received message: ", message)
+  if (message["type"]=="gameconfirmation") {
+    if (message["value"]=="false") {
+      alert("Bad Game Id")
+    }
+    else {
+      board = Chessground(document.getElementById('chessground'), config);
+      board.set({ orientation: message["orientation"], movable: { events: { after: t(board)}}});
+    }
+  }
+  else if (message["type"]=="fen") {
+    board = Chessground(document.getElementById('chessground'), config);
+    board.set({fen: message["value"]})
+  }
 }
 
 
 document.getElementById("newgame").onclick=newgame
 document.getElementById("joingame").onclick=joingame
 
+
 function newgame(){
-  exampleSocket.send(JSON.stringify({"type": "newgame"}))
+  message = JSON.stringify({"type": "newgame", "id": document.getElementById("startgameid").value})
+  console.log("sent message: ", message)
+  exampleSocket.send(message)
 }
 
 function joingame(){
-  exampleSocket.send(JSON.stringify({"type": "joingame"}))
+  message = JSON.stringify({"type": "joingame", "id": document.getElementById("joingameid").value})
+  console.log("send message: ", message)
+  exampleSocket.send(message)
 }
+
+// document.getElementById("myform").onsubmit=button2
+// document.getElementById("sub").onclick=button1
+
+// function button1(form) {
+//   console.log(document.getElementById("test2").value)
+//   console.log('here')
+// }
+
+// function button2() {
+//   //var inputValue = form.inputbox.value;
+//   console.log(document.getElementById("formtext").value)
+//   console.log('here')
+//   return false
+//   //alert (inputValue)
+// }
 
 // function onDrop(source,target,piece){
 //   exampleSocket.send(JSON.stringify({"type": "move", "from": source,"to": target}))
