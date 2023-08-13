@@ -18,13 +18,22 @@
     <script type="module" src="./script.js"></script>
 
     Game Password:
-    <input type="text", id="joingameid", value="gameid">
+    <input type="text" id="joingameid" value="gameid">
     <button id="joingame">joingame</button>
 
     <div id="chessground"></div>
 
-    <input type="text", id="startgameid", value="gameid">  
+    <input type="text" id="startgameid" value="gameid">  
     <button id="newgame">newgame</button>
 
+    <br>Starting FEN: <input type="text" id="FEN" value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1">
+    <br>Player 1 is: <select type="dropdown" id="orientation">
+      <option value="white">White</option>
+      <option value="black">Black</option>
+    </select>
+    <br><input type="checkbox" id="p1random">Every <input type="number" id="p1randomvalue" min="2" value="3"> moves, a random move is made for player1
+    <br><input type="checkbox" id="p2random">Every <input type="number" id="p2randomvalue" min="2" value="3"> moves, a random move is made for player2
+    <br><input type="checkbox" id="p1computer">Every <input type="number" id="p1computervalue" min="2" value="3"> moves, a computer move is made for player1
+    <br><input type="checkbox" id="p2computer">Every <input type="number" id="p2computervalue" min="2" value="3"> moves, a computer move is made for player2
     </body>
   </html>
