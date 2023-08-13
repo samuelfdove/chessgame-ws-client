@@ -36,7 +36,8 @@ exampleSocket.onmessage = (event) => {
     }
     else {
       board = Chessground(document.getElementById('chessground'), config);
-      board.set({ orientation: message["orientation"], movable: {color: message["orientation"], events: { after: t(board)}}});
+      //board.set({ orientation: message["orientation"], movable: {color: message["orientation"], events: { after: t(board)}}});
+      board.set({ orientation: message["orientation"], movable: {events: { after: t(board)}}});
     }
   }
   else if (message["type"]=="fen") {
