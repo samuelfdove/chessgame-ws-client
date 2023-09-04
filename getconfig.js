@@ -14,5 +14,8 @@ export function getConfig() {
   if (document.getElementById("p2computer").checked) {
     config["p2computer"] = document.getElementById("p2computervalue").value
   }
+  if (document.getElementById("p1choosepiece").checked) {
+    config["p1choosepiece"] = document.getElementById("p1choosepiecevalue").value
+  }
   return config
 }
