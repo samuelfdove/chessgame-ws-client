@@ -1,10 +1,10 @@
-// const exampleSocket = new WebSocket(
-//   "ws://localhost:8001/"
-// );
-
 const exampleSocket = new WebSocket(
-  "wss://desolate-reaches-83993-5015aeedf72f.herokuapp.com/"
+  "ws://localhost:8001/"
 );
+
+// const exampleSocket = new WebSocket(
+//   "wss://desolate-reaches-83993-5015aeedf72f.herokuapp.com/"
+// );
 
 function t(board){
   return (orig,dest,metadata) => {
@@ -45,12 +45,15 @@ exampleSocket.onmessage = (event) => {
     let dests = new Map(Object.entries(message["dests"]))
     board.set({fen: message["fen"], movable: {dests: dests}})
   }
+  else if (message["type"]=="chatmessage"){
+    document.getElementById("chatbox").value += "\n"+message["value"]
+  }
 }
 
 
 document.getElementById("newgame").onclick=newgame
 document.getElementById("joingame").onclick=joingame
-
+document.getElementById("sendmessage").onclick=sendmessage
 
 function newgame(){
   message = JSON.stringify({"type": "newgame", "id": document.getElementById("startgameid").value, "config": getConfig()})
@@ -62,4 +65,11 @@ function joingame(){
   message = JSON.stringify({"type": "joingame", "id": document.getElementById("joingameid").value})
   console.log("send message: ", message)
   exampleSocket.send(message)
+}
+
+function sendmessage(){
+  message = JSON.stringify({"type": "newmessage", "value": document.getElementById("message").value})
+  console.log("send message: ", message)
+  exampleSocket.send(message)
+  document.getElementById("message").value = ""
 }
