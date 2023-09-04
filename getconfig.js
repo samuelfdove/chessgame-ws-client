@@ -1,5 +1,5 @@
 export function getConfig() {
-  let config = {orientation: document.getElementById("orientation").value, FEN: document.getElementById("FEN").value, p1random: null, p2random: null, p1computer: null, p2computer: null}
+  let config = {orientation: document.getElementById("orientation").value, FEN: document.getElementById("FEN").value, p1random: null, p2random: null, p1computer: null, p2computer: null, p1choosepiece: null, p2choosepiece: null}
   // config["orientation"] = document.getElementById("orientation").value
   // config["FEN"] = document.getElementById("FEN").value
   if (document.getElementById("p1random").checked) {
@@ -16,6 +16,9 @@ export function getConfig() {
   }
   if (document.getElementById("p1choosepiece").checked) {
     config["p1choosepiece"] = document.getElementById("p1choosepiecevalue").value
+  }
+  if (document.getElementById("p2choosepiece").checked) {
+    config["p2choosepiece"] = document.getElementById("p2choosepiecevalue").value
   }
   return config
 }
